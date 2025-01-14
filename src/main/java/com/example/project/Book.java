@@ -3,28 +3,67 @@ package com.example.project;
 public class Book{
     //requires 5 attributes String title, String author, int yearPublished, String isbn, int quantity
 
+    private String title;
+    private String author;
+    private int yearPublished;
+    private String isbn;
+    private int quantity;
+
     //requires 1 constructor with 5 arguments that intitialize the attribtues of the class.
 
-    // public  getTitle() {}
+    public Book(String title, String author, int yearPublished, String isbn, int quantity) {
+        this.title = title;
+        this.author = author;
+        this.yearPublished = yearPublished;
+        this.isbn = isbn;
+        this.quantity = quantity;
+    }
 
-    // public setTitle() {}
+    public String getTitle() {
+        return title;
+    }
 
-    // public getAuthor() {}
+    public void setTitle(String newTitle) {
+        title = newTitle;
+    }
 
-    // public setAuthor() {}
+    public String getAuthor() {
+        return author;
+    }
 
-    // public getYearPublished() {}
+    public void setAuthor(String newAuth) {
+        author = newAuth;
+    }
 
-    // public setYearPublished() {}
+    public int getYearPublished() {
+        return yearPublished;
+    }
 
-    // public getIsbn() {}
+    public void setYearPublished(int newYear) {
+        yearPublished = newYear;
+    }
 
-    // public void setIsbn() {}
+    public String getIsbn() {
+        return isbn;
+    }
 
-    // public int getQuantity() {}
+    public void setIsbn(String newIsbn) {
+        isbn = newIsbn;
+    }
 
-    // public void setQuantity() {}
+    public int getQuantity() {
+        return quantity;
+    }
 
-    // public  bookInfo(){} //returns "Title: [], Author: [], Year: [], ISBN: [], Quantity: []"
+    public void setQuantity(int newQuant) {
+        quantity = newQuant;
+    }
+
+    //returns "Title: [], Author: [], Year: [], ISBN: [], Quantity: []"
+
+    public String bookInfo() {
+        String bookInfo = "Title: " + title + ", Author: " + author + ", Year: " + yearPublished + ", ISBN: " + ", Quantity: " + quantity;
+        return bookInfo;
+    } 
        
 }
