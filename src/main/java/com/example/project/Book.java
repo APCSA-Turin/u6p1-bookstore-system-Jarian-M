@@ -62,7 +62,7 @@ public class Book{
     //returns "Title: [], Author: [], Year: [], ISBN: [], Quantity: []"
 
     public String bookInfo() {
-        String bookInfo = "Title: " + title + ", Author: " + author + ", Year: " + yearPublished + ", ISBN: " + ", Quantity: " + quantity;
+        String bookInfo = "Title: " + title + ", Author: " + author + ", Year: " + yearPublished + ", ISBN: " + isbn + ", Quantity: " + quantity;
         return bookInfo;
     } 
        

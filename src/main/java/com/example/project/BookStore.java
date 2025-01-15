@@ -33,10 +33,11 @@ public class BookStore{
 
     public void removeUser(User user) {
         for(int i = 0; i < users.length; i++) {
-            if(users[i].getName().equals(user.getName())) {
+            if(users[i] == user) {
                 users[i] = null;
             }
         }
+        consolidateUsers();
     }
 
     public void consolidateUsers() {
@@ -48,42 +49,70 @@ public class BookStore{
                 ind++;
             }
         }
+        users = temp;
     }
 
     public void addBook(Book book) {
-        int i = 0;
-        while(books[i] != null) {
-            i++;
+        if(books == null) {
+            books = new Book[1];
+            books[0] = book;
+        } else {
+            Book[] newBooks = new Book[books.length + 1];
+            for(int i = 0; i < books.length; i++) {
+                newBooks[i] = books[i];
+            }
+            newBooks[books.length] = book;
+            books = newBooks;
         }
-        books[i] = book;
     }
 
     public void insertBook(Book book, int index) {
-        if(index >= 0 && index < books.length) {
-            books[index] = book;
-        } else {
-            System.out.println("The index is Out of Bounds!");
+        Book[] newBooks = new Book[books.length + 1];
+        for(int i = 0; i < index; i++) {
+            newBooks[i] = books[i];
         }
+        newBooks[index] = book;
+        int k = index;
+        for(int j = index + 1; j < books.length + 1; j++) {
+            newBooks[j] = books[k];
+            k++;
+        }
+        books = newBooks;
+
     }
 
     public void removeBook(Book book) {
         for(int i = 0; i < books.length; i++) {
-            if(books[i].getTitle().equals(book.getTitle())) {
-                users[i] = null;
+            int ind = i;
+            if(books[i] == book) {
+                books[i].setQuantity(books[i].getQuantity() - 1);
+                if(books[i].getQuantity() == 0) {
+                    for(int j = ind; j < books.length - 1; j++) {
+                        books[j] = books[j + 1];
+                    }
+                }
             }
         }
     }
-
-    public String BookStoreInfo() {
-        String bookStore = "";
-        for(int i = 0; i < books.length; i++) {
-            bookStore += books[i].bookInfo();
-        }
-        return bookStore;
-    }
        
-    //public String bookStoreBookInfo(){} //you are not tested on this method but use it for debugging purposes
+    public String bookStoreBookInfo() {
+        StringBuilder info = new StringBuilder();
+        for(Book book: books) {
+            if(book != null) {
+                info.append(book.bookInfo()).append("\n");
+            }
+        }
+        return info.toString();
+    } //you are not tested on this method but use it for debugging purposes
 
-    //public String bookStoreUserInfo(){} //you are not tested on this method but use it for debugging purposes
+    public String bookStoreUserInfo() {
+        StringBuilder info = new StringBuilder();
+        for(User user: users) {
+            if(user != null) {
+                info.append(user.userInfo()).append("\n");
+            }
+        }
+        return info.toString();
+    } //you are not tested on this method but use it for debugging purposes
 
 }
