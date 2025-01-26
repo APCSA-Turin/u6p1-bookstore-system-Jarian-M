@@ -161,7 +161,8 @@ public class BookStore{
         menu += "Press 5 to Register a User.\n";
         menu += "Press 6 to Remove a User.\n";
         menu += "Press 7 to Show All Registered Users.\n";
-        menu += "Press 8 to Check In Book.\n";
+        menu += "Press 8 to Check In a Book.\n";
+        menu += "Press 9 to Check Out a Book.\n";
         menu += "\n---------------------------------------------------------------";
         System.out.println(menu);
         BookStore bookStore = new BookStore();
@@ -193,11 +194,13 @@ public class BookStore{
                 System.out.println("The Book has been added successfully!");
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
             } else if(choice == 2) {
                 System.out.println("Enter the Title of the Book you want to Remove: ");
                 String remove = scan.next();
                 Book bookRemoved = bookStore.findBook(remove);
                 if(bookRemoved != null) {
+                    bookRemoved.setQuantity(1);
                     bookStore.removeBook(bookRemoved);
                     System.out.println("The Book has been removed successfully!");
                 } else {
@@ -205,29 +208,35 @@ public class BookStore{
                 }
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
             } else if(choice == 3) {
                 System.out.print("Enter Position of the Book in the catalog: ");
                 int index = scan.nextInt();
-                System.out.print("Eneter the Book Title: ");
+                scan.nextLine();
+                System.out.print("Enter the Book Title: ");
                 String insertTitle = scan.next();
                 System.out.print("Enter Author Name: ");
                 String insertAuthor = scan.next();
                 System.out.print("Enter the Year the Book was Published: ");
                 int insertYear = scan.nextInt();
+                scan.nextLine();
                 System.out.print("Enter the Book's ISBN: ");
                 String insertIsbn = scan.next();
                 System.out.print("Enter the Book's Quantity: ");
                 int insertQuant = scan.nextInt();
+                scan.nextLine();
                 Book insertedBook = new Book(insertTitle, insertAuthor, insertYear, insertIsbn, insertQuant);
                 bookStore.insertBook(insertedBook, index);
                 System.out.println("The Book has been inserted successfully!");
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
             } else if(choice == 4) {
                 System.out.println("Books in the Store: ");
                 System.out.println(bookStore.bookStoreBookInfo());
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
             } else if(choice == 5) {
                 System.out.print("Enter User Name: ");
                 String userName = scan.next();
@@ -250,30 +259,67 @@ public class BookStore{
                 }
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
             } else if(choice == 7) {
-                System.out.println("Registered Users: ");
+                System.out.println("Registered Users: \n");
                 System.out.println(bookStore.bookStoreUserInfo());
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
             } else if(choice == 8) {
                 System.out.println("Enter the Title of the Book you are checking in: ");
                 String checkIn = scan.next();
+                System.out.println("Enter the ID of the User that is checking in the book: ");
+                String checkingUser = scan.next();
                 Book bookChecked = bookStore.findBook(checkIn);
+                User userChecked = bookStore.findUser(checkingUser);
+                Book[] b1 = userChecked.getBooks();
                 if(bookChecked != null) {
+                    for(int j = 0; j < b1.length; j++) {
+                        if(b1[j] == bookChecked) {
+                            b1[j] = null;
+                        }
+                    }
                     bookChecked.setQuantity(bookChecked.getQuantity() + 1);
                     System.out.println("The Book has been checked in successfully!");
                 } else {
                     System.out.println("The Book was not Found in the catalog!");
-                    System.out.println("Please insert the book into the catalog!");
+                    System.out.println("Please add the book into the catalog!");
                 }
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
+            } else if(choice == 9) {
+                System.out.println("Enter the Title of the Book you are checking out: ");
+                String checkOut = scan.next();
+                System.out.println("Enter the ID of the User that is checking in the book: ");
+                String checkingUser = scan.next();
+                Book checkedOut = bookStore.findBook(checkOut);
+                User userChecked = bookStore.findUser(checkingUser);
+                Book[] b2 = userChecked.getBooks();
+                if(checkedOut != null) {
+                    int i = 0;
+                    while(b2[i] != null) {
+                        i++;
+                    }
+                    b2[i] = checkedOut;
+                    checkedOut.setQuantity(checkedOut.getQuantity() - 1);
+                    System.out.println("The Book has been checked out successfully!");
+                } else {
+                    System.out.println("The Book was not Found in the catalog!");
+                    System.out.println("Please check out a book that's available in our catalog!");
+                }
+                System.out.println(menu);
+                choice = scan.nextInt();
+                scan.nextLine();
             } else {
                 System.out.println("Please choose one of the listed options from 0-8! Try Again!");
                 System.out.println(menu);
                 choice = scan.nextInt();
+                scan.nextLine();
             }
         }
+        System.out.println("See You Soon!");
         scan.close();
     }
 
