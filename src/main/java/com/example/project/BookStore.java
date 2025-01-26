@@ -42,11 +42,11 @@ public class BookStore{
         consolidateUsers();
     }
 
-    public User findUser(String find) {
+    public User findUser(String id) {
         User findUser = null;
-        for(User look: users) {
-            if(look.getName() == find) {
-                findUser = look;
+        for(int i = 0; i < users.length; i++) {
+            if(users[i].getId().equals(id)) {
+                findUser = users[i];
             }
         }
         return findUser;
@@ -118,7 +118,7 @@ public class BookStore{
     public Book findBook(String find) {
         Book findBook = null;
         for(Book look: books) {
-            if(look.getTitle() == find) {
+            if(look.getTitle().equals(find)) {
                 findBook = look;
             }
         }
@@ -165,18 +165,27 @@ public class BookStore{
         BookStore bookStore = new BookStore();
         Scanner scan = new Scanner(System.in);
         int choice = scan.nextInt();
+        scan.nextLine();
         while(choice != 0) {
             if(choice == 1) {
+                System.out.println("If there are any spaces, use a \"-\" instead!");
                 System.out.print("Enter Book Title: ");
-                String bookTitle = scan.next();
-                System.out.print("Enter the Author's Name: ");
-                String bookAuthor = scan.next();
+                String bookTitle = scan.nextLine();
+
+                System.out.print("Enter the Author's Name (in Last Name,FirstName format- Please disregard the space after the comma!): ");
+                String bookAuthor = scan.nextLine();
+
                 System.out.print("Enter the Year it was Published: ");
                 int year = scan.nextInt();
+                scan.nextLine();
+
                 System.out.print("Enter Book ISBN: ");
-                String bookIsbn = scan.next();
+                String bookIsbn = scan.nextLine();
+
                 System.out.print("Enter Book Quantity: ");
                 int quant = scan.nextInt();
+                scan.nextLine();
+
                 Book newBook = new Book(bookTitle, bookAuthor, year, bookIsbn, quant);
                 bookStore.addBook(newBook);
                 System.out.println("The Book has been added successfully!");
@@ -219,12 +228,11 @@ public class BookStore{
                 choice = scan.nextInt();
             } else if(choice == 5) {
                 System.out.print("Enter User Name: ");
-                String userName = scan.next();
-                IdGenerate.generateID();
-                String userId = IdGenerate.getCurrentId();
-                User newUser = new User(userName, userId);
+                String userName = scan.nextLine();
+                String newUserId = "99";
+                User newUser = new User(userName, newUserId);
                 bookStore.addUser(newUser);
-                System.out.println("The new User has been registered successfully!\nNew User's ID: " + userId); 
+                //System.out.println("The new User has been registered successfully!\nNew User's ID: " + newUserId);//
                 System.out.println(menu);
                 choice = scan.nextInt();
             } else if(choice == 6) {
