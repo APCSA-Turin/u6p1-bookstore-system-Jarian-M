@@ -45,8 +45,10 @@ public class BookStore{
     public User findUser(String id) {
         User findUser = null;
         for(int i = 0; i < users.length; i++) {
-            if(users[i].getId().equals(id)) {
-                findUser = users[i];
+            if(users[i] != null) {
+                if(users[i].getId().equals(id)) {
+                    findUser = users[i];
+                }
             }
         }
         return findUser;
@@ -228,11 +230,12 @@ public class BookStore{
                 choice = scan.nextInt();
             } else if(choice == 5) {
                 System.out.print("Enter User Name: ");
-                String userName = scan.nextLine();
-                String newUserId = "99";
+                String userName = scan.next();
+                String newUserId = IdGenerate.getCurrentId();
                 User newUser = new User(userName, newUserId);
                 bookStore.addUser(newUser);
-                //System.out.println("The new User has been registered successfully!\nNew User's ID: " + newUserId);//
+                System.out.println("The new User has been registered successfully!\nNew User's ID: " + newUserId);
+                IdGenerate.generateID();
                 System.out.println(menu);
                 choice = scan.nextInt();
             } else if(choice == 6) {
