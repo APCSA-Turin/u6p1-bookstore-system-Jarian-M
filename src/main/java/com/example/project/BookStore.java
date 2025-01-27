@@ -171,11 +171,12 @@ public class BookStore{
         scan.nextLine();
         while(choice != 0) {
             if(choice == 1) {
-                System.out.println("If there are any spaces, use a \"-\" instead!");
+                System.out.println("If there are any spaces, use a \"_\" instead!");
+                System.out.println("For the Author's name, if there are multiple words use Last Name,FirstName format- Please disregard the space after the comma!)");
                 System.out.print("Enter Book Title: ");
                 String bookTitle = scan.nextLine();
 
-                System.out.print("Enter the Author's Name (in Last Name,FirstName format- Please disregard the space after the comma!): ");
+                System.out.print("Enter the Author's Name: ");
                 String bookAuthor = scan.nextLine();
 
                 System.out.print("Enter the Year it was Published: ");
